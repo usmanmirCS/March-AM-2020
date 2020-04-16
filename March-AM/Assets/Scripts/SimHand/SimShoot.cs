@@ -14,7 +14,7 @@ public class SimShoot : MonoBehaviour
         {
             GameObject fireball;
             fireball = Instantiate(m_prefabFireball, transform.position, transform.rotation);
-            fireball.GetComponent<Rigidbody>().AddForce(Vector3.forward * m_shootForce);
+            fireball.GetComponent<Rigidbody>().AddForce(transform.forward * m_shootForce);
             Destroy(fireball, 5);
         }
     }
