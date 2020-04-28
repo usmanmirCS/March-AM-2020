@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SimGrab : MonoBehaviour
 {
+    public Animator m_anim;
+
     private GameObject m_touchingObject;
     private GameObject m_heldObject;
 
@@ -17,16 +19,14 @@ public class SimGrab : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject == m_touchingObject)
-        {
-            m_touchingObject = null;
-        }
+        m_touchingObject = null;
     }
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Mouse1))
         {
+            m_anim.SetBool("isGrabbing", true);
             if(m_touchingObject)
             {
                 Grab();
@@ -34,6 +34,7 @@ public class SimGrab : MonoBehaviour
         }
         if(Input.GetKeyUp(KeyCode.Mouse1))
         {
+            m_anim.SetBool("isGrabbing", false);
             if(m_heldObject)
             {
                 Release();
