@@ -14,7 +14,7 @@ public class VRGrabbing : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.GetComponent<Rigidbody>())
+        if(other.tag == "Interactable")
         {
             m_touchingObject = other.gameObject;
         }
