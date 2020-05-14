@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(LineRenderer))]
 public class VRTeleport : MonoBehaviour
 {
     public Transform m_VrRig;

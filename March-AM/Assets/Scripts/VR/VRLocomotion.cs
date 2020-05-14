@@ -10,11 +10,7 @@ public class VRLocomotion : MonoBehaviour
     public Transform m_director;
     public LayerMask m_groundLayer;
     public Transform m_VRHead;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -26,6 +22,9 @@ public class VRLocomotion : MonoBehaviour
 
         Vector3 playerRight = touchPosition.x * m_director.right;
         Vector3 playerForward = touchPosition.y * m_director.forward;
+
+        playerRight.y = 0;
+        playerForward.y = 0;
 
         m_VRRig.position += playerRight;
         m_VRRig.position += playerForward;
