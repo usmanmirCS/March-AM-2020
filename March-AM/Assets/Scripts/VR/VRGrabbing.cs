@@ -9,6 +9,9 @@ public class VRGrabbing : MonoBehaviour
     public string m_grip;
     private bool m_gripHeld;
 
+    public string m_trigger;
+    private bool m_triggerHeld;
+
     private GameObject m_touchingObject;
     private GameObject m_heldObject;
 
@@ -45,6 +48,23 @@ public class VRGrabbing : MonoBehaviour
                 Release();
             }
         }
+
+        if(Input.GetAxis(m_trigger) > 0.8f && !m_triggerHeld)
+        {
+            m_triggerHeld = true;
+            if(m_heldObject)
+            {
+                m_heldObject.SendMessage("TriggerDown");
+            }
+        }
+        else if(Input.GetAxis(m_trigger) < 0.8f && m_heldObject)
+        {
+            m_triggerHeld = false;
+            if(m_heldObject)
+            {
+                m_heldObject.SendMessage("TriggerUp");
+            }
+        }
     }
 
     void Grab()
@@ -60,6 +80,5 @@ public class VRGrabbing : MonoBehaviour
         m_heldObject.transform.SetParent(null);
         m_heldObject = null;
     }
-
 
 }
