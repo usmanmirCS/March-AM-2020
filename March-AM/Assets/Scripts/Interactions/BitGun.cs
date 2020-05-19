@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class BitGun : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject m_prefabBit;
+    public Transform m_spawnBit;
+    public float m_shootForce;
 
-    // Update is called once per frame
-    void Update()
+    void TriggerDown()
     {
-        
+        GameObject bit = Instantiate(m_prefabBit, m_spawnBit.position, m_spawnBit.rotation);
+        bit.GetComponent<Rigidbody>().AddForce(m_spawnBit.forward * m_shootForce);
+        Destroy(bit, 5f);
     }
 }
