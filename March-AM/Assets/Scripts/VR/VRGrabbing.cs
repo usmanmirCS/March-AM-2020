@@ -12,6 +12,8 @@ public class VRGrabbing : MonoBehaviour
     public string m_trigger;
     private bool m_triggerHeld;
 
+    public string m_menuButton;
+
     private GameObject m_touchingObject;
     private GameObject m_heldObject;
 
@@ -65,6 +67,14 @@ public class VRGrabbing : MonoBehaviour
                 m_heldObject.SendMessage("TriggerUp");
             }
         }
+
+        if(Input.GetButtonDown(m_menuButton))
+        {
+            if(m_heldObject)
+            {
+                m_heldObject.SendMessage("MenuButton");
+            }
+        }
     }
 
     void Grab()
@@ -76,6 +86,7 @@ public class VRGrabbing : MonoBehaviour
 
     void Release()
     {
+        m_heldObject.SendMessage("GrabReleased");
         m_heldObject.GetComponent<Rigidbody>().isKinematic = false;
         m_heldObject.transform.SetParent(null);
         m_heldObject = null;

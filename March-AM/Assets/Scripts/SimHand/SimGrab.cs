@@ -55,6 +55,13 @@ public class SimGrab : MonoBehaviour
                 m_heldObject.SendMessage("TriggerUp");
             }
         }
+        else if(Input.GetKeyDown(KeyCode.Mouse2))
+        {
+            if(m_heldObject)
+            {
+                m_heldObject.SendMessage("MenuDown");
+            }
+        }
     }
 
     void Grab()
@@ -66,6 +73,7 @@ public class SimGrab : MonoBehaviour
 
     void Release()
     {
+        m_heldObject.SendMessage("GrabReleased");
         m_heldObject.transform.SetParent(null);
         m_heldObject.GetComponent<Rigidbody>().isKinematic = false;
         m_heldObject = null;
