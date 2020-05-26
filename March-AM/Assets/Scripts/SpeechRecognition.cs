@@ -14,12 +14,35 @@ public class SpeechRecognition : MonoBehaviour
 
     void Start()
     {
-        
+        m_keywordActions.Add("Spawn cube", SpawnCube);
+        m_keywordActions.Add("Ra za na ba do a", SpawnCube);
+        m_keywordActions.Add("Create ball", SpawnSphere);
+
+        m_keywordRecognizer = new KeywordRecognizer(m_keywordActions.Keys.ToArray());
+
+        m_keywordRecognizer.OnPhraseRecognized += OnPhraseRecognized;
+        m_keywordRecognizer.Start();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
-        
+        m_keywordActions[args.text].Invoke();
+    }
+
+
+    public Transform m_spawnLocation;
+
+    public GameObject m_prefabCube;
+
+    void SpawnCube()
+    {
+        Instantiate(m_prefabCube, m_spawnLocation.position, m_spawnLocation.rotation);
+    }
+
+    public GameObject m_prefabSphere;
+
+    void SpawnSphere()
+    {
+        Instantiate(m_prefabSphere, m_spawnLocation.position, m_spawnLocation.rotation);
     }
 }

@@ -67,7 +67,12 @@ public class SimGrab : MonoBehaviour
     void Grab()
     {
         m_heldObject = m_touchingObject;
-        m_heldObject.GetComponent<Rigidbody>().isKinematic = true;
+        //m_heldObject.GetComponent<Rigidbody>().isKinematic = true;
+        FixedJoint fx = gameObject.AddComponent<FixedJoint>();
+        fx.connectedBody = m_heldObject.GetComponent<Rigidbody>();
+        fx.breakForce = 5000;
+        fx.breakTorque = 5000;
+
         m_heldObject.transform.SetParent(transform);
     }
 
@@ -75,7 +80,17 @@ public class SimGrab : MonoBehaviour
     {
         m_heldObject.SendMessage("GrabReleased");
         m_heldObject.transform.SetParent(null);
-        m_heldObject.GetComponent<Rigidbody>().isKinematic = false;
+        //m_heldObject.GetComponent<Rigidbody>().isKinematic = false;
+
+        Destroy(GetComponent<FixedJoint>());
+
+        m_heldObject = null;
+    }
+
+    private void OnJointBreak(float breakForce)
+    {
+        m_heldObject.SendMessage("GrabReleased");
+        m_heldObject.transform.SetParent(null);
         m_heldObject = null;
     }
 }
