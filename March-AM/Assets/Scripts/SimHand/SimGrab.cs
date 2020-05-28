@@ -9,6 +9,12 @@ public class SimGrab : MonoBehaviour
     private GameObject m_touchingObject;
     private GameObject m_heldObject;
 
+    private Vector3 m_oldPosition;
+    private Vector3 m_handVelocity;
+
+    private Vector3 m_oldEulerAngles;
+    private Vector3 m_angularVelocity;
+
     private void OnTriggerStay(Collider other)
     {
         if(other.tag == "Interactable")
@@ -24,6 +30,12 @@ public class SimGrab : MonoBehaviour
 
     private void Update()
     {
+        m_handVelocity = transform.position - m_oldPosition;
+        m_oldPosition = transform.position;
+
+        m_angularVelocity = transform.eulerAngles - m_oldEulerAngles;
+        m_oldEulerAngles = transform.eulerAngles;
+
         if(Input.GetKeyDown(KeyCode.Mouse1))
         {
             m_anim.SetBool("isGrabbing", true);
@@ -83,6 +95,11 @@ public class SimGrab : MonoBehaviour
         //m_heldObject.GetComponent<Rigidbody>().isKinematic = false;
 
         Destroy(GetComponent<FixedJoint>());
+
+        Rigidbody rb = m_heldObject.GetComponent<Rigidbody>();
+
+        rb.velocity = m_handVelocity * 50 / rb.mass;
+        rb.angularVelocity = m_angularVelocity * 50 / rb.mass;
 
         m_heldObject = null;
     }
