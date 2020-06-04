@@ -5044,6 +5044,7 @@ GameObject:
   - component: {fileID: 1879920164}
   - component: {fileID: 1879920166}
   - component: {fileID: 1879920165}
+  - component: {fileID: 1879920167}
   m_Layer: 8
   m_Name: Sim Hand
   m_TagString: Untagged
@@ -5314,6 +5315,19 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!65 &1879920167
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879920156}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.05, z: 0.25}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1898310710
 GameObject:
   m_ObjectHideFlags: 0
